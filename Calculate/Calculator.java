@@ -36,10 +36,6 @@ public class Calculator {
             int num2 = romanToNumber(symbol2);
             String[] roman = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
 
-            if (symbol1.matches(Arrays.toString(roman)) || symbol2.matches(Arrays.toString(roman))) {
-                throw new Exception("Используются одновременно разные системы счисления");
-            }
-
             if (symbol1.matches(Arrays.toString(roman)) & symbol2.matches(Arrays.toString(roman))) {
                 if (operation.equals("+")) {
                     resultArab = num1 + num2;
@@ -75,7 +71,7 @@ public class Calculator {
                 System.out.println(resultArab);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Используются одновременно разные системы счисления");
         }
         return null;
     }
