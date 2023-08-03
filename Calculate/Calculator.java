@@ -44,10 +44,11 @@ public class Calculator {
                 } else if (operation.equals("-")) {
                     if (num1 < num2) {
                         throw new Exception("В римской системе нет отрицательных чисел");
+                    } else {
+                        resultArab = num1 - num2;
+                        resultRim = String.valueOf(convertNumToRoman(resultArab));
+                        System.out.println(resultRim);
                     }
-                    resultArab = num1 - num2;
-                    resultRim = String.valueOf(convertNumToRoman(resultArab));
-                    System.out.println(resultRim);
                 } else if (operation.equals("*")) {
                     resultArab = num1 * num2;
                     resultRim = String.valueOf(convertNumToRoman(resultArab));
@@ -71,7 +72,7 @@ public class Calculator {
                 System.out.println(resultArab);
             }
         } catch (Exception e) {
-            System.out.println("Используются одновременно разные системы счисления");
+            System.out.println(e.toString());
         }
         return null;
     }
