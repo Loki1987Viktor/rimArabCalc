@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Calculator {
     public static void main(String[] args) throws Exception {
-        String userInput = null;
+        String userInput;
         Scanner scan = new Scanner(System.in);
         // Считываем строку userInput которую ввёл пользователь(цикл)
         while (true) {
@@ -16,8 +16,8 @@ public class Calculator {
         }
     }
     public static String calc(String calc) {
-        int resultArab = 0;
-        String resultRim;
+        int resultArab;
+
         try {
             String[] splitUserImport = calc.split(" ");
 
@@ -81,7 +81,7 @@ public class Calculator {
                 throw new Exception("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
         return null;
     }
