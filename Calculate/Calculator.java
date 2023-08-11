@@ -16,7 +16,7 @@ public class Calculator {
         }
     }
     public static String calc(String calc) {
-        int resultArab = 0;
+        int resultArab;
 
         try {
             String[] splitUserImport = calc.split(" ");
@@ -34,8 +34,6 @@ public class Calculator {
             String operation = splitUserImport[1];
             int num1 = romanToNumber(symbol1);
             int num2 = romanToNumber(symbol2);
-            String rim1 = convertNumToRoman(num1);
-            String rim2 = convertNumToRoman(num2);
             boolean flag1 = false;
             boolean flag2 = false;
 
@@ -93,6 +91,8 @@ public class Calculator {
                 } else {
                     throw new Exception("Используются одновременно разные системы счисления");
                 }
+            } else {
+                throw new Exception("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
             }
         } catch (ArrayIndexOutOfBoundsException abe) {
             System.out.println("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
