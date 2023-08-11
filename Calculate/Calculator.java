@@ -1,6 +1,5 @@
 package Calculate;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Calculator {
@@ -23,8 +22,9 @@ public class Calculator {
             String[] splitUserImport = calc.split(" ");
 
             if (splitUserImport.length < 3) {
-                throw new Exception("Строка не является математической операцией");
+                throw new Exception("Строка не является математической операцией!");
             }
+
             if (splitUserImport.length > 3) {
                 throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
             }
@@ -34,42 +34,51 @@ public class Calculator {
             String operation = splitUserImport[1];
             int num1 = romanToNumber(symbol1);
             int num2 = romanToNumber(symbol2);
+            boolean flag1 = false;
+            boolean flag2 = false;
+
             String[] roman = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
 
-            if (symbol1.matches(Arrays.toString(roman)) & symbol2.matches(Arrays.toString(roman))) {
-                if (operation.equals("+")) {
-                    resultArab = num1 + num2;
-                    resultRim = String.valueOf(convertNumToRoman(resultArab));
-                    System.out.println(resultRim);
-                } else if (operation.equals("-")) {
-                    if (num1 < num2) {
-                        throw new Exception("В римской системе нет отрицательных чисел");
-                    } else {
-                        resultArab = num1 - num2;
-                        resultRim = String.valueOf(convertNumToRoman(resultArab));
-                        System.out.println(resultRim);
-                    }
-                } else if (operation.equals("*")) {
-                    resultArab = num1 * num2;
-                    resultRim = String.valueOf(convertNumToRoman(resultArab));
-                    System.out.println(resultRim);
-                } else if (operation.equals("/")) {
-                    resultArab = num1 / num2;
-                    resultRim = String.valueOf(convertNumToRoman(resultArab));
-                    System.out.println(resultRim);
+            for (int i = 0; i < roman.length; i++) {
+                if (symbol1.equals(roman[i])) {
+                    flag1 = true;
                 }
-            } else if (operation.equals("+")) {
-                resultArab = Integer.parseInt(symbol1) + Integer.parseInt(symbol2);
-                System.out.println(resultArab);
-            } else if (operation.equals("-")) {
-                resultArab = Integer.parseInt(symbol1) - Integer.parseInt(symbol2);
-                System.out.println(resultArab);
-            } else if (operation.equals("*")) {
-                resultArab = Integer.parseInt(symbol1) * Integer.parseInt(symbol2);
-                System.out.println(resultArab);
-            } else if (operation.equals("/")) {
-                resultArab = Integer.parseInt(symbol1) / Integer.parseInt(symbol2);
-                System.out.println(resultArab);
+            }
+            for (int y = 0; y < roman.length; y++) {
+                if (symbol2.equals(roman[y])) {
+                    flag2 = true;
+                }
+            }
+
+            if (num1 > 0 & num2 > 0 & num1 < 11 & num2 < 11) {
+                if (flag1 == flag2) {
+                    if (operation.equals("+")) {
+                        resultArab = num1 + num2;
+                        System.out.println(convertNumToRoman(resultArab));
+                    } else if (operation.equals("-")) {
+                        if (num1 < num2) {
+                            throw new Exception("В римской системе нет отрицательных чисел!");
+                        } else {
+                            resultArab = num1 - num2;
+                            if (resultArab < 1) {
+                                throw new Exception("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
+                            }
+                            System.out.println(convertNumToRoman(resultArab));
+                        }
+                    } else if (operation.equals("*")) {
+                        resultArab = num1 * num2;
+                        System.out.println(convertNumToRoman(resultArab));
+                    } else if (operation.equals("/")) {
+                        resultArab = num1 / num2;
+                        System.out.println(convertNumToRoman(resultArab));
+                    } else {
+                        throw new Exception("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
+                    }
+                } else {
+                    throw new Exception("Используются одновременно разные системы счисления!");
+                }
+            } else {
+                throw new Exception("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -90,31 +99,31 @@ public class Calculator {
     }
     private static int romanToNumber(String roman) {
         try {
-            if (roman.equals("I")) {
+            if (roman.equals("I") | roman.equals("1")) {
                 return 1;
-            } else if (roman.equals("II")) {
+            } else if (roman.equals("II") | roman.equals("2")) {
                 return 2;
-            } else if (roman.equals("III")) {
+            } else if (roman.equals("III") | roman.equals("3")) {
                 return 3;
-            } else if (roman.equals("IV")) {
+            } else if (roman.equals("IV") | roman.equals("4")) {
                 return 4;
-            } else if (roman.equals("V")) {
+            } else if (roman.equals("V") | roman.equals("5")) {
                 return 5;
-            } else if (roman.equals("VI")) {
+            } else if (roman.equals("VI") | roman.equals("6")) {
                 return 6;
-            } else if (roman.equals("VII")) {
+            } else if (roman.equals("VII") | roman.equals("7")) {
                 return 7;
-            } else if (roman.equals("VIII")) {
+            } else if (roman.equals("VIII") | roman.equals("8")) {
                 return 8;
-            } else if (roman.equals("IX")) {
+            } else if (roman.equals("IX") | roman.equals("9")) {
                 return 9;
-            } else if (roman.equals("X")) {
+            } else if (roman.equals("X") | roman.equals("10")) {
                 return 10;
             }
         } catch (Exception e) {
             System.out.println("Используются одновременно разные системы счисления");
         }
-        return 0;
+        return -1;
     }
 }
 
