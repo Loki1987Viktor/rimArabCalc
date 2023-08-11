@@ -16,7 +16,7 @@ public class Calculator {
         }
     }
     public static String calc(String calc) {
-        int resultArab;
+        int resultArab = 0;
 
         try {
             String[] splitUserImport = calc.split(" ");
@@ -34,6 +34,8 @@ public class Calculator {
             String operation = splitUserImport[1];
             int num1 = romanToNumber(symbol1);
             int num2 = romanToNumber(symbol2);
+            String rim1 = convertNumToRoman(num1);
+            String rim2 = convertNumToRoman(num2);
             boolean flag1 = false;
             boolean flag2 = false;
 
@@ -51,7 +53,7 @@ public class Calculator {
             }
 
             if (num1 > 0 & num2 > 0 & num1 < 11 & num2 < 11) {
-                if (flag1 == flag2) {
+                if (flag1 & flag2) {
                     if (operation.equals("+")) {
                         resultArab = num1 + num2;
                         System.out.println(convertNumToRoman(resultArab));
@@ -74,12 +76,26 @@ public class Calculator {
                     } else {
                         throw new Exception("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
                     }
+                } else if (!flag1 & !flag2) {
+                    if (operation.equals("+")) {
+                        resultArab = num1 + num2;
+                        System.out.println(resultArab);
+                    } else if (operation.equals("-")) {
+                        resultArab = num1 - num2;
+                        System.out.println(resultArab);
+                    } else if (operation.equals("*")) {
+                        resultArab = num1 * num2;
+                        System.out.println(resultArab);
+                    } else if (operation.equals("/")) {
+                        resultArab = num1 / num2;
+                        System.out.println(resultArab);
+                    }
                 } else {
-                    throw new Exception("Используются одновременно разные системы счисления!");
+                    throw new Exception("Используются одновременно разные системы счисления");
                 }
-            } else {
-                throw new Exception("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
             }
+        } catch (ArrayIndexOutOfBoundsException abe) {
+            System.out.println("Калькулятор принимает на вход числа от 1 до 10 включительно, не более!");
         } catch (Exception e) {
             System.out.println(e);
         }
